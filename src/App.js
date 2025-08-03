@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {ApolloProvider} from "@apollo/client";
+import client from "./apolloClient";
+import "./style.css"
+
+import BrandsPage from "./pages/BrandsPage";
+import ModelsPage from "./pages/ModelsPage";
+import GuitarDetailsPage from "./pages/GuitarDetailsPage";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<BrandsPage />}/>
+            <Route path="/brand/:brandId" element={<ModelsPage />}/>
+            <Route path="/guitar/:modelId" element={<GuitarDetailsPage />} />
+        </Routes>
+      </Router>
+    </ApolloProvider>
+
   );
 }
+
 
 export default App;
